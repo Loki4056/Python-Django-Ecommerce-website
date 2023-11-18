@@ -1,0 +1,38 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+<div class="container page-wrapper" style="width: 450px;">
+ <div class="page-inner">
+    <div class="row">
+      <div class="el-wrapper">
+        <div class="box-up">
+          <img src="{% static product.product_image.url %}" alt="product_image" height="300px" width="300px" />
+          <div class="img-info">
+            <div class="info-inner">
+              <span style="background-color:#08050a; color:yellow;"class="p-company">{{product.name}}</span>
+            </div>
+            <div class="a-size">{{product.description}}</div>
+          </div>
+        </div>
+
+        <div class="box-down">
+          <div class="h-bg">
+            <div class="h-bg-inner"></div>
+          </div>
+
+          <div class="alert" style="color: red;">Only {{product.quantity}} Quantity available !!!!</div>
+          <div class="price">₹ {{product.price}}</div>
+
+          <form method="POST" action="{% url 'add-to-cart' pk=product.pk %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="number" name="quantity" value="1" min="1" step="1">
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </div>
+          </form> 
+        </div>
+      </div>
+    </div>
+ </div>
+</div>
+{% endblock content %}
